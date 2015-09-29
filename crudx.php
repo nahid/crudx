@@ -80,10 +80,10 @@ class Crudx
 		if (isset($var)) {
 			$type = gettype($var);
 			if (in_array($type, $numtype)) {
-				return $var;
+				return self::$_db->real_escape_string($var);
 			} elseif ($type == "string") {
 
-				return "'" . $var . "'";
+				return "'" . self::$_db->real_escape_string($var) . "'";
 			}
 		}
 	}
@@ -165,7 +165,7 @@ class Crudx
 
 		self::$_sql='';
 		
-		foreach ($data as $val) {
+		foreach ($data as $key=>$val) {
 			$fields=implode(',', array_keys($val));
 			$values=self::makeSqlString($val);
 
