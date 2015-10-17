@@ -6,11 +6,16 @@
 
 require_once "crudx.php";
 
-$crud = new Crudx;
+$user = Crudx::table('users');
 
-$data=$crud->table('users')->insertMany([
-		['name'=>'Firoz Serniabat', 'username'=>'firoz', 'password'=>123456],
-		['name'=>'Suhel Chowdhury', 'username'=>'suhel', 'password'=>123456]
-	]);
+$user->name="Firozx";
+$user->username="firoz";
+$user->password="123456";
+$user->created_at="2015-10-10";
 
-var_dump($data);
+
+$save=$user->where('id','=',5)->save();
+
+if($save){
+	echo 'Successfully Updated';
+}

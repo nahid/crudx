@@ -20,6 +20,7 @@ class Crudx
 	public static $sql;
 
 	public static $_db;
+	protected static $_data=array();
 
 	protected static $_sql = 'SELECT * FROM ';
 	protected static $_query = null;
@@ -62,6 +63,18 @@ class Crudx
 
 		self::$_db->query('SET CHARACTER SET utf8');
 		self::$_db->query("SET SESSION collation_connection ='utf8_unicode_ci'");
+	}
+
+	public static function __set($name, $value)
+	{
+		self::$_data[$name]=$value;
+	}
+
+	public static function __get($name)
+	{
+		if(array_key_exists($name, self::$_data)){
+			return self::$_data[$name];
+		}
 	}
 
 	protected static function _apInstance() 
@@ -122,11 +135,15 @@ class Crudx
 		return self::_apInstance();
 	}
 
-	public static function save(array $data)
+	public static function save(array $data=null)
 	{
-		if(empty($data)){
+		if(is_null($data) && count(self::$_data)>0){
+			$data=self::$_data;
+		}elseif(is_null($data) && count(self::$_data)<1){
 			return false;
 		}
+
+		
 
 		if(self::$_where==''){
 			$fields=implode(',', array_keys($data));
@@ -152,7 +169,7 @@ class Crudx
 		return self::$_query;
 	}
 
-	public static function insert(array $data)
+	public static function insert(array $data=null)
 	{
 		return self::save($data);
 	}
@@ -384,6 +401,17 @@ class Crudx
 	}
 
 
+	protected static function destroyMemory()
+	{
+		foreach(self::_apInstance() as $property=>$value){
+			unset(self::$$property);
+		}
+	}
+
+	function __destruct()
+	{
+		self::destroyMemory();
+	}
 	
 	
 
