@@ -6,16 +6,19 @@
 
 require_once "crudx.php";
 
-$user = Crudx::table('users');
+$user = Crudx::table('posts');
 
-$user->name="Firozx";
-$user->username="firoz";
-$user->password="123456";
-$user->created_at="2015-10-10";
+$user->blog="Hello newwww blog";
+$user->user_id=1;
 
 
-$save=$user->where('id','=',5)->save();
+//Crudx::table('user')->where('id', '=', 5)->get()->result();
 
-if($save){
-	echo 'Successfully Updated';
-}
+
+$data=Crudx::table('posts')
+->join('users', 'posts.user_id', 'users.id')
+->get(['name']);
+
+
+
+var_dump($data->getQueryString());

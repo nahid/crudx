@@ -11,9 +11,9 @@ class Crudx
 
 	protected static $host="localhost";
 	protected static $username="root";
-	protected static $password="bolbona";
+	protected static $password="janina@password";
 	protected static $database="crudx";
-	protected static $tablePrefix="tbl_";
+	protected static $tablePrefix="";
 
 	
 
@@ -31,6 +31,7 @@ class Crudx
 	protected static $_where = '';
 	protected static $_sort='';
 	protected static $_limit='';
+	protected static $_join='';
 	
 	
 	
@@ -65,12 +66,12 @@ class Crudx
 		self::$_db->query("SET SESSION collation_connection ='utf8_unicode_ci'");
 	}
 
-	public static function __set($name, $value)
+	public function __set($name, $value)
 	{
 		self::$_data[$name]=$value;
 	}
 
-	public static function __get($name)
+	public function __get($name)
 	{
 		if(array_key_exists($name, self::$_data)){
 			return self::$_data[$name];
@@ -267,9 +268,9 @@ class Crudx
 		$result=array();
 		
 		if (self::$_where == '') {
-			self::$_sql = "SELECT * FROM " . self::$_table.self::$_sort.self::$_limit;
+			self::$_sql = "SELECT * FROM " . self::$_table . self::$_join .self::$_sort.self::$_limit;
 		} else {
-			self::$_sql = "SELECT * FROM " . self::$_table . self::$_where.self::$_sort.self::$_limit;
+			self::$_sql = "SELECT * FROM " . self::$_table . self::$_join . self::$_where.self::$_sort.self::$_limit;
 		}
 
 		self::$_query = self::$_db -> query(self::$_sql);
@@ -288,9 +289,9 @@ class Crudx
 		$result=array();
 		self::$_fields = implode(',', $fields);
 		if (self::$_where == '') {
-			self::$_sql = "SELECT " . self::$_fields . " FROM " . self::$_table.self::$_sort;
+			self::$_sql = "SELECT " . self::$_fields . " FROM " . self::$_table. self::$_join . self::$_sort;
 		} else {
-			self::$_sql = "SELECT " . self::$_fields . " FROM " . self::$_table . self::$_where.self::$_sort;
+			self::$_sql = "SELECT " . self::$_fields . " FROM " . self::$_table . self::$_join . self::$_where.self::$_sort;
 		}
 
 		self::$_query = self::$_db -> query(self::$_sql);
@@ -408,12 +409,28 @@ class Crudx
 		}
 	}
 
+	public function join($table, $firstTableColumn, $condition, $secondTableColumn=null)
+	{
+		if(is_null($secondTableColumn)){
+			$secondTableColumn=$condition;
+			$condition='=';
+		}
+
+		$tableFirst=self::$tablePrefix.$firstTableColumn;
+		$tableSecond=self::$tablePrefix.$secondTableColumn;
+
+		self::$_join.=' INNER JOIN '.self::$tablePrefix.$table.' ON '.$tableFirst.$condition.$tableSecond.' ';
+
+		return self::_apInstance();
+	}
+
 	function __destruct()
 	{
 		self::destroyMemory();
 	}
-	
-	
+
+
+
 
 
 }
