@@ -1,4 +1,4 @@
-<?php
+<?php Nahid;
 /*
 *@Author:		Nahid Bin Azhar
 *@Author URL:	http://nahid.co
@@ -7,13 +7,17 @@
 class Crudx 
 {
 
-	//Database credentials
+	/*
+		Database connection creadentials
+	*/
 
 	protected static $host="localhost";
 	protected static $username="root";
 	protected static $password="janina@password";
 	protected static $database="crudx";
 	protected static $tablePrefix="";
+
+	//end database connection credentials
 
 	
 
