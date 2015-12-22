@@ -153,7 +153,7 @@ $crud->table('posts')->join('users', 'posts.user_id','=', 'users.id')->get(['pos
 ```php
 $crud->table('users')->save(['name'=>'Nahid']);
 echo $crud->getId();
-``
+```
 
 # Get last generated query string
 
