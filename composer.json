@@ -1,0 +1,35 @@
+{
+    "name": "nahid/crudx",
+    "description": "Crudx is a mysql query handling library based on PHP",
+    "keywords":["database", "crud", "mysql", "orm", "crudx", "mysqli"],
+    "type": "library",
+    "license": "Creative Common",
+    "authors": [
+        {
+            "name": "Nahid Bin Azhar",
+            "email": "nahid.dns@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "classmap": [
+
+        ],
+        "psr-4": {
+            "Nahid\\Crudx\\": "src/"
+        }
+    },
+    "scripts": {
+
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
+

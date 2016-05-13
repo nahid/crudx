@@ -4,21 +4,20 @@
 *@Author URL:	http://nahid.co
 */
 
-require_once "crudx.php";
+require_once 'vendor/autoload.php';
 
-$user = Crudx::table('posts');
+use Nahid\Crudx\Facade\Crudx;
+//use Nahid\Crudx\Crudx;
 
-$user->blog="Hello newwww blog";
-$user->user_id=1;
 
+$db = new Crudx;
 
 //Crudx::table('user')->where('id', '=', 5)->get()->result();
 
 
 $data=Crudx::table('posts')
-->join('users', 'posts.user_id', 'users.id')
-->get(['name']);
+->first(['blog', 'id']);
 
 
 
-var_dump($data->getQueryString());
+var_dump($data->get(['id', 'blog'])->result());
