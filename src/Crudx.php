@@ -219,6 +219,11 @@ class Crudx
             return false;
         }
 
+        if (func_num_args() == 2) {
+            $value = $condition;
+            $condition = '=';
+        }
+
         $this->_where .= $this->_where == '' ? ' WHERE '.$fields.$condition.$this->makeType($value) : ' AND '.$fields.$condition.$this->makeType($value);
 
         $this->_sql .= $this->_where;
@@ -230,6 +235,11 @@ class Crudx
     {
         if ($fields == '' or $condition == '') {
             return false;
+        }
+
+        if (func_num_args() == 2) {
+            $value = $condition;
+            $condition = '=';
         }
 
         $this->_where .= $this->_where == '' ? ' WHERE '.$fields.$condition.$this->makeType($value) : ' OR '.$fields.$condition.$this->makeType($value);

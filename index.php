@@ -24,8 +24,7 @@ $db = new Crudx($config);
 //Crudx::table('user')->where('id', '=', 5)->get()->result();
 
 /*
-$user = $db->table('users');
-
+$user = $db->table('userget()
 $user->name = 'Arufur Naim';
 $user->username = 'naim';
 $user->created_at = date('Y-m-d');
@@ -34,4 +33,5 @@ if($user->save()) {
     echo 'Success';
 }*/
 
-var_dump($db->table('users')->all()->result());
+echo '<pre>';
+var_dump($db->table('users')->where('username', '=', 'nahid')->first(['name'])->result());
