@@ -34,4 +34,5 @@ if($user->save()) {
 }*/
 
 echo '<pre>';
-var_dump($db->table('users')->where('username', '=', 'nahid')->first(['name'])->result());
+$query = $db->table('users')->where('username', '=', 'nahid')->first(['name'])->result();
+var_dump($db->getQueryString());
