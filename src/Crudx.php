@@ -380,11 +380,11 @@ class Crudx
 
     public function getId()
     {
-        if (!$this->_query) {
+        if (!$this->_db) {
             return false;
         }
 
-        return $this->_query->insert_id;
+        return $this->_db->insert_id;
     }
 
     public function getTables()
